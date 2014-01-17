@@ -63,7 +63,7 @@ cmake_minimum_required(VERSION 2.6)
 		add_custom_target(
 			doc
 			${DOXYGEN_EXECUTABLE}
-			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/${project_INCLUDE}"
+			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/main" # TODO change main for your project name
 			COMMENT "Generating API documentation with Doxygen" VERBATIM
 		)
 	else()
@@ -91,7 +91,7 @@ cmake_minimum_required(VERSION 2.6)
 
 	# Executable
 
-	set(exe_name "main")
+	set(exe_name "main") # TODO change main for your project name
 	
 	file(
 		GLOB_RECURSE
@@ -124,6 +124,10 @@ cmake_minimum_required(VERSION 2.6)
 
 	install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN "*.h")
 	# See https://github.com/periscop/openscop/blob/master/CMakeLists.txt for executable and library
+# 	install(FILES main-config.cmake DESTINATION lib/main)
+	if (IS_DIRECTORY doc/doxygen)
+		install(DIRECTORY doc/doxygen DESTINATION share/${exe_name})
+	endif()
 
 
 # Little help

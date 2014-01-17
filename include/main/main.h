@@ -15,6 +15,32 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-
+/*! @mainpage Main https://TODO
+ *
+ * @section section_introduction Introduction
+ *
+ * TODO
+ * 
+ * @section section_system_requirement System requirement
+ * 
+ * TODO
+ * 
+ * @section section_installation Installation with CMake
+ * 
+ * Use CMake to build and install:
+ * @code
+   mkdir build
+   cd build
+   cmake .. #-DCMAKE_INSTALL_PREFIX=/path/to/install/the/project
+   make
+   make doc
+   make test
+   make install # su -c "make install" # sudo make install
+   @endcode
+ * 
+ * @section section_use Use
+ * 
+ * TODO
+ */
 
 #endif
