@@ -47,11 +47,11 @@ cmake_minimum_required(VERSION 2.6)
 
 # Include directories (to use #include <> instead of #include "")
 
-	# main
+	# Project
 	message(STATUS "---")
-	set(main_INCLUDE "./include")
-	message(STATUS "Include main = ${main_INCLUDE}")
-	include_directories("${main_INCLUDE}")
+	set(project_INCLUDE "./include")
+	message(STATUS "Include project = ${project_INCLUDE}")
+	include_directories("${project_INCLUDE}")
 
 
 # Build doxygen
@@ -63,7 +63,7 @@ cmake_minimum_required(VERSION 2.6)
 		add_custom_target(
 			doc
 			${DOXYGEN_EXECUTABLE}
-			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/${main_INCLUDE}"
+			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/${project_INCLUDE}"
 			COMMENT "Generating API documentation with Doxygen" VERBATIM
 		)
 	else()
@@ -91,15 +91,17 @@ cmake_minimum_required(VERSION 2.6)
 
 	# Executable
 
+	set(exe_name "main")
+	
 	file(
 		GLOB_RECURSE
 		sources
 		source/*.c
 	)
 	
-	message(STATUS "Add execute main")
-	add_executable(main ${sources})
-	target_link_libraries(main ${CLAY_LIBRARY} ${CLOOG_ISL_LIBRARY} ${ISL_LIBRARY} ${CANDL_LIBRARY} ${CLAN_LIBRARY} ${PIPLIBMP_LIBRARY} ${OSL_LIBRARY})
+	message(STATUS "Add execute ${exe_name}")
+	add_executable(${exe_name} ${sources})
+	target_link_libraries(${exe_name} ${CLAY_LIBRARY} ${CLOOG_ISL_LIBRARY} ${ISL_LIBRARY} ${CANDL_LIBRARY} ${CLAN_LIBRARY} ${PIPLIBMP_LIBRARY} ${OSL_LIBRARY})
 	
 	# Test
 
@@ -114,7 +116,7 @@ cmake_minimum_required(VERSION 2.6)
 		string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/source_code_with_scop/" "" source_name ${source})
 		
 		message(STATUS "- ${source_name}")
-		add_test("main__${source_name}" main "${source}")
+		add_test("${exe_name}__${source_name}" ${exe_name} "${source}")
 		
 	endforeach()
 
